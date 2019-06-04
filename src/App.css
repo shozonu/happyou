@@ -1,11 +1,22 @@
-div:nth-of-type(1) {
+#root-container > div:nth-of-type(1) {
     flex-grow: 0;
+    /* background-color: red; */
 }
-div:nth-of-type(2) {
+#root-container > div:nth-of-type(2) {
     flex-grow: 1;
+    /* background-color: orange; */
 }
-div:nth-of-type(3) {
+#root-container > div:nth-of-type(3) {
     flex-grow: 1;
+    /* background-color: yellow; */
+}
+#root-container > div:nth-of-type(4) {
+    flex-grow: 1;
+    /* background-color: green; */
+}
+
+#root-container {
+    /* placeholder */
 }
 
 .App {
@@ -45,6 +56,10 @@ div:nth-of-type(3) {
 }
 
 .Side {
+    /* background-color: #332f3a */
+}
+
+.side-container {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -60,21 +75,23 @@ div:nth-of-type(3) {
     transition: width 0.5s, padding-left 0.5s;
     border-right: solid 0.33em black;
 }
-.Side > div {
+.side-container > div {
     visibility: hidden;
+    white-space: nowrap;
     padding-left: 0;
     transition: visibility 0.38s, padding-left 0.38s;
 }
 
-.Side:hover {
+.side-container:hover {
     width: 10em;
     padding-left: 0em;
 }
-.Side:hover > div {
+.side-container:hover > div {
     visibility: visible;
+    white-space: normal;
     padding-left: 2em;
     width: 8em;
 }
-.Side:hover > div:hover {
+.side-container:hover > div:hover {
     background-color: #1d2329;
 }
