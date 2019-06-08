@@ -4,20 +4,17 @@ class Sidebar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {entries: []};
-        //add a command object or function delegate to each entries?
     }
     componentDidMount() {
-        let entries = [];
+        let list = [];
         for(let i = 0; i < 4; i++) {
             let name = "Sidebar Entry " + i;
             let e = GenerateEntryDiv(name);
-            entries.push(e);
+            list.push(e);
         }
-        this.setState({entries: entries});
+        this.setState({entries: list});
     }
     render() {
-        let entries = [];
-        entries.push({name: "test name"});
         return (
             <div className="Side">
                 <div className ="side-container">
@@ -30,7 +27,7 @@ class Sidebar extends React.Component {
 
 function GenerateEntryDiv(title) {
     return (
-        <div>{title}</div>
+        <div onClick={function() {console.log(title)}}>{title}</div>
     );
 }
 
