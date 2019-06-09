@@ -1,18 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {app: "Default Application"}
+        if(props.app != null) {
+            this.state = {app: props.app};
+        }
+        else {
+            this.state = {app: "None. Click one of the sidebar entries!"};
+        }
+        this.handleChangeApp = this.handleChangeApp.bind(this);
+    }
+    handleChangeApp(e) {
+        if(e.detail.text !== this.state.app) {
+            console.log(e.detail.text + " was clicked.");
+            this.setState({app: e.detail.text});
+        }
+    }
+    componentDidMount() {
+        this.element.addEventListener("changeapp", this.handleChangeApp);
     }
     render() {
         return (
-            <div className="App">
+            <div className="App" ref={elem => this.element = elem}>
                 <header className="App-header">
                     <p>
-                        Currently Displaying<br/>
+                        Currently Displaying:<br/>
                         <code>{this.state.app}</code>
                     </p>
                 </header>

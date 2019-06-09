@@ -26,8 +26,15 @@ class Sidebar extends React.Component {
 }
 
 function GenerateEntryDiv(title) {
+    let f = function() {
+        let app = document.getElementsByClassName('App');
+        app[0].dispatchEvent(new CustomEvent("changeapp", {
+            bubbles: false,
+            detail: {text: title}
+        }));
+    }
     return (
-        <div onClick={function() {console.log(title)}}>{title}</div>
+        <div onClick={f}>{title}</div>
     );
 }
 
