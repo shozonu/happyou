@@ -12,6 +12,7 @@ class Sidebar extends React.Component {
             let e = GenerateEntryDiv(name);
             list.push(e);
         }
+        list.push(GenerateEntryDiv("Spells"));
         this.setState({entries: list});
     }
     render() {
@@ -30,7 +31,7 @@ function GenerateEntryDiv(title) {
         let app = document.getElementsByClassName('App');
         app[0].dispatchEvent(new CustomEvent("changeapp", {
             bubbles: false,
-            detail: {text: title}
+            detail: {name: title}
         }));
     }
     return (

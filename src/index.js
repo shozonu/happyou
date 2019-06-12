@@ -5,6 +5,8 @@ import App from './App';
 import Sidebar from './Sidebar';
 import * as serviceWorker from './serviceWorker';
 
+// ReactDOM.render(<Sidebar />, document.getElementById('side'));
+// ReactDOM.render(<App app="default"/>, document.getElementById('app'));
 let sidebarObj = ReactDOM.render(<Sidebar />, document.getElementById('side'));
 let appObj = ReactDOM.render(<App />, document.getElementById('app'));
 
