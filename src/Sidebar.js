@@ -13,6 +13,7 @@ class Sidebar extends React.Component {
             list.push(e);
         }
         list.push(GenerateEntryDiv("Spells"));
+        list.push(GenerateEntryDiv("Test"));
         this.setState({entries: list});
     }
     render() {

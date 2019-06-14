@@ -1,4 +1,5 @@
 import React from 'react';
+import Spell from './Spell';
 import './App.css';
 
 class App extends React.Component {
@@ -6,7 +7,6 @@ class App extends React.Component {
         super(props);
         this.handleChangeApp = this.handleChangeApp.bind(this);
         this.getApp = this.getApp.bind(this);
-        this.getAPIResponse = this.getAPIResponse.bind(this);
         if(props.app != null) {
             this.state = {
                 app: props.app,
@@ -23,14 +23,13 @@ class App extends React.Component {
     componentDidMount() {
         this.setState({appObj: this.getApp("default")});
         this.element.addEventListener("changeapp", this.handleChangeApp);
-        this.getAPIResponse("/spells/1/");
     }
     componentWillDismount() {
         this.element.removeEventListener("changeapp");
     }
     render() {
-        let obj = this.getApp(this.state.app);
-        return obj;
+        console.log("(Re)rendering App.");
+        return this.getApp(this.state.app);
     }
     handleChangeApp(e) {
         if(e.detail.name !== this.state.app) {
@@ -39,47 +38,49 @@ class App extends React.Component {
         }
     }
     getApp(name) {
+        let content;
         if(name === "Spells") {
-            return (
-                <div className="App" ref={elem => this.element = elem}>
-                    <header className="App-header">
-                        <p>
-                            Spell: {this.state.data.name}<br/>
-                            <code>
-                                Description: {this.state.data.desc[0]}<br/>
-                            </code>
-                        </p>
-                    </header>
+            content = (
+                <Spell url="http://www.dnd5eapi.co/api/spells/119/"/>
+            );
+        }
+        else if(name === "Test") {
+            content = (
+                <div className="App-content">
+                    <Test content="testing content" />
                 </div>
             );
         }
         else {
-            return (
-                <div className="App" ref={elem => this.element = elem}>
-                    <header className="App-header">
-                        <p>
-                            Currently Displaying:<br/>
-                            <code>{this.state.app}</code>
-                        </p>
-                    </header>
+            content = (
+                <div className="App-content">
+                    <p>
+                        Currently Displaying:<br/>
+                        <code>{this.state.app}</code>
+                    </p>
                 </div>
             );
         }
+        return (
+            <div className="App" ref={elem => this.element = elem}>
+                {content}
+            </div>
+        );
     }
-    getAPIResponse(s) {
-        let scope = this;
-        let xhttp = new XMLHttpRequest();
-        let url = "http://www.dnd5eapi.co/api" + s;
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                let obj = JSON.parse(xhttp.responseText);
-                console.log(obj);
-                scope.setState({data: obj});
-                return obj;
-            }
+}
+class Test extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            content: props.content
         };
-        xhttp.open("GET", url, true);
-        xhttp.send();
+    }
+    render() {
+        return(
+            <div className="App-content">
+                <div>{this.state.content}</div>
+            </div>
+        );
     }
 }
 
