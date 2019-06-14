@@ -1,5 +1,6 @@
 import React from 'react';
 import Spell from './Spell';
+import SpellList from './SpellList';
 import './App.css';
 
 class App extends React.Component {
@@ -48,6 +49,13 @@ class App extends React.Component {
             content = (
                 <div className="App-content">
                     <Test content="testing content" />
+                </div>
+            );
+        }
+        else if(name === "SpellList") {
+            content = (
+                <div className="App-content">
+                    <SpellList />
                 </div>
             );
         }
