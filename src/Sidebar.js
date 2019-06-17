@@ -36,7 +36,7 @@ function GenerateEntryDiv(index, text, changeTo) {
             bubbles: false,
             detail: {name: text, changeTo: changeTo}
         }));
-    }
+    };
     return (
         <div onClick={f} key={index}>{text}</div>
     );

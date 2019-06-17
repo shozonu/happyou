@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SpellListEntry from './SpellListEntry';
 
 class SpellList extends React.Component {
     constructor(props) {
@@ -18,7 +19,11 @@ class SpellList extends React.Component {
             max = 5;
         }
         for(let i = 0; i < max; i = i + 1) {
-            let o = <div key={i}>{this.state.results[i].name}</div>;
+            let o = <SpellListEntry
+                key={i}
+                name={this.state.results[i].name}
+                url={this.state.results[i].url}
+            />;
             list.push(o);
         }
         console.log("(Re)rendering SpellList.");
