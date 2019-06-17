@@ -23,36 +23,36 @@ class App extends React.Component {
     }
     componentDidMount() {
         this.setState({appObj: this.getApp("default")});
-        this.element.addEventListener("changeapp", this.handleChangeApp);
+        this.element.addEventListener("changeApp", this.handleChangeApp);
     }
     componentWillDismount() {
-        this.element.removeEventListener("changeapp");
+        this.element.removeEventListener("changeApp");
     }
     render() {
         console.log("(Re)rendering App.");
         return this.getApp(this.state.app);
     }
     handleChangeApp(e) {
-        if(e.detail.name !== this.state.app) {
-            console.log(e.detail.name + " was clicked.");
-            this.setState({app: e.detail.name});
+        if(e.detail.changeTo !== this.state.app) {
+            console.log(e.detail.name + " was clicked. (" + e.detail.changeTo +")");
+            this.setState({app: e.detail.changeTo});
         }
     }
     getApp(name) {
         let content;
-        if(name === "Spells") {
+        if(name === "appSpells") {
             content = (
                 <Spell url="http://www.dnd5eapi.co/api/spells/119/"/>
             );
         }
-        else if(name === "Test") {
+        else if(name === "appTest") {
             content = (
                 <div className="App-content">
                     <Test content="testing content" />
                 </div>
             );
         }
-        else if(name === "SpellList") {
+        else if(name === "appSpellList") {
             content = (
                 <div className="App-content">
                     <SpellList />

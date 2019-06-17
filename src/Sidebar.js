@@ -9,13 +9,13 @@ class Sidebar extends React.Component {
         let list = [];
         for(let i = 0; i < 4; i++) {
             let name = "Sidebar Entry " + i;
-            let e = GenerateEntryDiv(name, i);
+            let e = GenerateEntryDiv(i, name, "appDefault");
             list.push(e);
         }
         let n = list.length;
-        list.push(GenerateEntryDiv("Spells", n++));
-        list.push(GenerateEntryDiv("Test", n++));
-        list.push(GenerateEntryDiv("SpellList", n++));
+        list.push(GenerateEntryDiv(n++, "Spells", "appSpells"));
+        list.push(GenerateEntryDiv(n++, "Test", "appTest"));
+        list.push(GenerateEntryDiv(n++, "SpellList", "appSpellList"));
         this.setState({entries: list});
     }
     render() {
@@ -29,16 +29,16 @@ class Sidebar extends React.Component {
     }
 }
 
-function GenerateEntryDiv(title, index) {
+function GenerateEntryDiv(index, text, changeTo) {
     let f = function() {
         let app = document.getElementsByClassName('App');
-        app[0].dispatchEvent(new CustomEvent("changeapp", {
+        app[0].dispatchEvent(new CustomEvent("changeApp", {
             bubbles: false,
-            detail: {name: title}
+            detail: {name: text, changeTo: changeTo}
         }));
     }
     return (
-        <div onClick={f} key={index}>{title}</div>
+        <div onClick={f} key={index}>{text}</div>
     );
 }
 

@@ -20,8 +20,8 @@ class SpellList extends React.Component {
         for(let i = 0; i < max; i = i + 1) {
             list.push(<div key={i}>{this.state.results[i].name}</div>);
         }
-        console.log("displaying " + max);
         console.log("(Re)rendering SpellList.");
+        console.log("displaying " + max);
         return(
             <div className="App-content">
                 <div>Results: {this.state.results.count}</div>
