@@ -18,7 +18,8 @@ class SpellList extends React.Component {
             max = 5;
         }
         for(let i = 0; i < max; i = i + 1) {
-            list.push(<div key={i}>{this.state.results[i].name}</div>);
+            let o = <div key={i}>{this.state.results[i].name}</div>;
+            list.push(o);
         }
         console.log("(Re)rendering SpellList.");
         console.log("displaying " + max);
