@@ -30,15 +30,18 @@ class App extends React.Component {
     }
     render() {
         console.log("(Re)rendering App.");
-        return this.getApp(this.state.app);
+        return this.getApp();
     }
     handleChangeApp(e) {
         if(e.detail.changeTo !== this.state.app) {
             console.log(e.detail.name + " was clicked. (" + e.detail.changeTo +")");
-            this.setState({app: e.detail.changeTo});
+            this.setState({
+                app: e.detail.changeTo,
+            });
         }
     }
-    getApp(name) {
+    getApp() {
+        let name = this.state.app;
         let content;
         if(name === "appSpells") {
             content = (
