@@ -13,11 +13,24 @@ class SpellListEntry extends React.Component {
         //
     }
     render() {
-        let e = <div>{this.state.name}</div>;
+        const context = this;
+        let f = function() {
+            document.getElementsByClassName("App")[0]
+            .dispatchEvent(new CustomEvent("changeApp", {
+                bubbles: false,
+                detail: {
+                    name: context.state.name,
+                    changeTo: "appSpellsTest",
+                    data: {
+                        spell: {
+                            url: context.state.url
+                        }
+                    }
+                }
+            }));
+        };
+        let e = <div onClick={f}>{this.state.name}</div>;
         return e;
-    }
-    handleClick() {
-        //
     }
 }
 

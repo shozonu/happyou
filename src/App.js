@@ -37,6 +37,7 @@ class App extends React.Component {
             console.log(e.detail.name + " was clicked. (" + e.detail.changeTo +")");
             this.setState({
                 app: e.detail.changeTo,
+                data: e.detail.data
             });
         }
     }
@@ -46,6 +47,11 @@ class App extends React.Component {
         if(name === "appSpells") {
             content = (
                 <Spell url="http://www.dnd5eapi.co/api/spells/119/"/>
+            );
+        }
+        else if(name === "appSpellsTest") {
+            content = (
+                <Spell url = {this.state.data.spell.url} />
             );
         }
         else if(name === "appTest") {
