@@ -23,9 +23,13 @@ class Spell extends React.Component {
         let response = await fetch(url).then(result => {
             return result.json();
         });
+        let list = response.desc;
+        for(let i = 0; i < list.length; i++) {
+            list[i] = list[i].replace("â€™", "'");
+        }
         this.setState({
             name: response.name,
-            desc: response.desc
+            desc: list
         });
     }
 }
