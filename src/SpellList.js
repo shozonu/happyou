@@ -39,6 +39,11 @@ class SpellList extends React.Component {
         let response = await fetch(url).then(result => {
             return result.json();
         });
+        let list = [];
+        for(let i = 0; i < response.results.length; i++) {
+            let s = String(response.results[i]);
+            list.push(s.replace(/â€™/g, "'"));
+        }
         this.setState({
             count: response.count,
             results: response.results
