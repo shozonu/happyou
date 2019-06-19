@@ -25,7 +25,7 @@ class Spell extends React.Component {
         });
         this.setState({
             name: response.name,
-            desc: response.desc[0]
+            desc: response.desc
         });
     }
 }
