@@ -32,16 +32,18 @@
 .App-content {
   background-color: #282c34;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-flow: column nowrap;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.App-content > div {
+    overflow-y: auto;
+}
 .App-link {
   color: #61dafb;
 }

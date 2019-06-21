@@ -12,7 +12,6 @@ class Spell extends React.Component {
         console.log("(Re)rendering Spell.");
         let content = [];
         if(this.state.desc != null) {
-            console.log("not undefined");
             content.push(<div key={0}>{this.state.name}</div>);
             for(let i = 0; i < this.state.desc.length; i++) {
                 content.push(<div key={i+1}>{this.state.desc[i]}</div>);
