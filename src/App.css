@@ -72,11 +72,18 @@
     overflow-x: hidden;
 
     font-family: "Scaly Sans";
+    font-size: calc(1em + 2px);
     font-style: normal;
     font-weight: normal;
     font-variant-caps: normal;
 
     text-align: left;
+}
+.Spell-title {
+    font-variant-caps: petite-caps;
+}
+.Spell-desc {
+    font-size: calc(1em - 4px);
 }
 
 @keyframes App-logo-spin {

@@ -12,9 +12,11 @@ class Spell extends React.Component {
         console.log("(Re)rendering Spell.");
         let content = [];
         if(this.state.desc != null) {
-            content.push(<div key={0}>{this.state.name}</div>);
+            content.push(
+                <div key={0} className="Spell-title">{this.state.name}</div>
+            );
             for(let i = 0; i < this.state.desc.length; i++) {
-                content.push(<div key={i+1}>{this.state.desc[i]}</div>);
+                content.push(<div key={i+1} className="Spell-desc">{this.state.desc[i]}</div>);
             }
         }
         return(
