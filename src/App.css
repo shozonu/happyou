@@ -3,6 +3,18 @@
     src: local("Scaly Sans"), url("./fonts/Scaly Sans.otf"), format("otf");
 }
 
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
 #root-container > div:nth-of-type(1) {
     flex-grow: 0;
     /* background-color: red; */
@@ -52,11 +64,19 @@
 }
 
 .Spell {
+    background-color: #373c44;
+    max-width: 66vw;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
     overflow-y: auto;
+    overflow-x: hidden;
+
     font-family: "Scaly Sans";
     font-style: normal;
     font-weight: normal;
     font-variant-caps: normal;
+
+    text-align: left;
 }
 
 @keyframes App-logo-spin {
@@ -74,36 +94,36 @@
 
 .side-container {
     background-color: #282c34;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(1em + 1vmin);
     color: white;
 
     width: 0em;
-    padding-left: 0.5em;
+    padding-left: 0em;
     transition: width 0.5s, padding-left 0.5s;
     border-right: solid 0.33em black;
 }
 .side-container > div {
     visibility: hidden;
     white-space: nowrap;
-    padding-left: 0;
+    padding-left: 0em;
     transition: visibility 0.38s, padding-left 0.38s;
 }
 
 .side-container:hover {
-    width: 10em;
+    width: calc(6em + 10vw);
     padding-left: 0em;
 }
 .side-container:hover > div {
     visibility: visible;
-    white-space: normal;
-    padding-left: 2em;
-    width: 8em;
+    white-space: nowrap;
+    padding-left: 1em;
+    width: auto;
 }
 .side-container:hover > div:hover {
     background-color: #1d2329;
