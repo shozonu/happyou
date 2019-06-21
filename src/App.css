@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Scaly Sans";
+    src: local("Scaly Sans"), url("./fonts/Scaly Sans.otf"), format("otf");
+}
+
 #root-container > div:nth-of-type(1) {
     flex-grow: 0;
     /* background-color: red; */
@@ -41,11 +46,16 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.App-content > div {
-    overflow-y: auto;
-}
+
 .App-link {
   color: #61dafb;
+}
+
+.Spell {
+    overflow-y: auto;
+    font-family: "Scaly Sans";
+    font-style: normal;
+    font-weight: normal;
 }
 
 @keyframes App-logo-spin {

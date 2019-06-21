@@ -19,7 +19,7 @@ class Spell extends React.Component {
         }
         return(
             <div className="App-content">
-                <div>
+                <div className="Spell">
                     {content}
                 </div>
             </div>
