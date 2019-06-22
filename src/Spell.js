@@ -16,7 +16,17 @@ class Spell extends React.Component {
                 <div key={0} className="Spell-title">{this.state.name}</div>
             );
             for(let i = 0; i < this.state.desc.length; i++) {
-                content.push(<div key={i+1} className="Spell-desc">{this.state.desc[i]}</div>);
+                content.push(<div key={content.length} className="Spell-desc">
+                {this.state.desc[i]}
+                </div>);
+            }
+            if(this.state.higher_level != null) {
+                for(let i = 0; i < this.state.higher_level.length; i++) {
+                    content.push(<div key={content.length} className="Spell-desc">
+                    <span className="Spell-header-italic">At Higher Levels. </span>
+                    {this.state.higher_level[i]}
+                    </div>);
+                }
             }
         }
         return(
@@ -31,15 +41,17 @@ class Spell extends React.Component {
         let response = await fetch(url).then(result => {
             return result.json();
         });
-        let list = [];
         for(let i = 0; i < response.desc.length; i++) {
             let s = String(response.desc[i]);
-            list.push(s.replace(/â€™/g, "'"));
+            response.desc[i] = s.replace(/â€™/g, "'");
         }
-        this.setState({
-            name: response.name,
-            desc: list
-        });
+        if(response.higher_level != null) {
+            for(let i = 0; i < response.higher_level.length; i++) {
+                let s = String(response.higher_level[i]);
+                response.higher_level[i] = s.replace(/â€™/g, "'");
+            }
+        }
+        this.setState(response);
     }
 }
 
