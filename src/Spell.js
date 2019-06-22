@@ -13,12 +13,42 @@ class Spell extends React.Component {
         let content = [];
         if(this.state.desc != null) {
             content.push(
-                <div key={0} className="Spell-title">{this.state.name}</div>
+                <div key={content.length} className="Spell-title">{this.state.name}</div>
+            );
+            content.push(
+                <div key={content.length} className="Spell-desc">
+                    <span className="Spell-header">Casting Time: </span>
+                    {this.state.casting_time}
+                </div>
+            );
+            content.push(
+                <div key={content.length} className="Spell-desc">
+                    <span className="Spell-header">Range: </span>
+                    {this.state.range}
+                </div>
+            );
+            let mat = "";
+            if(this.state.material != null) {
+                mat = "(" + this.state.material + ")";
+            }
+            content.push(
+                <div key={content.length} className="Spell-desc">
+                    <span className="Spell-header">Components: </span>
+                    {this.state.components} {mat}
+                </div>
+            );
+            content.push(
+                <div key={content.length} className="Spell-desc">
+                    <span className="Spell-header">Duration: </span>
+                    {this.state.duration}
+                </div>
             );
             for(let i = 0; i < this.state.desc.length; i++) {
-                content.push(<div key={content.length} className="Spell-desc">
-                {this.state.desc[i]}
-                </div>);
+                content.push(
+                    <div key={content.length} className="Spell-desc">
+                        {this.state.desc[i]}
+                    </div>
+                );
             }
             if(this.state.higher_level != null) {
                 for(let i = 0; i < this.state.higher_level.length; i++) {
