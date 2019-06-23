@@ -36,8 +36,10 @@ class SpellList extends React.Component {
                 ((this.state.pageNumber * this.state.pageMax) - 1));
             return(
                 <div className="App-content">
-                    <div>Results: {this.state.results.count}</div>
-                    {list}
+                    <div className="SpellList">
+                        Results: {this.state.count}
+                        {list}
+                    </div>
                 </div>
             );
         }

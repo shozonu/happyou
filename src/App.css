@@ -63,6 +63,10 @@
     color: #61dafb;
 }
 
+.SpellList {
+    background-color: #3c3f47;
+}
+
 .Spell {
     background-color: #373c44;
     max-width: 66vw;
