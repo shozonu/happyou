@@ -30,7 +30,10 @@ class SpellList extends React.Component {
                 list.push(o);
             }
             console.log("(Re)rendering SpellList.");
-            console.log("displaying " + this.state.pageMax);
+            console.log("displaying " +
+                (this.state.pageMax * (this.state.pageNumber - 1)) +
+                " - " +
+                ((this.state.pageNumber * this.state.pageMax) - 1));
             return(
                 <div className="App-content">
                     <div>Results: {this.state.results.count}</div>
