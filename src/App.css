@@ -106,6 +106,10 @@
     user-select: none;
 }
 
+.SpellList-navigation {
+    background-color: red;
+}
+
 .Spell {
     background-color: #373c44;
     max-width: 66vw;
