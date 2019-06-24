@@ -3,6 +3,7 @@ import './App.css';
 import SpellListEntry from './SpellListEntry';
 import SpellListSearchInput from './SpellListSearchInput';
 import SpellListSearchButton from './SpellListSearchButton';
+import SpellListNavigation from './SpellListNavigation';
 
 class SpellList extends React.Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class SpellList extends React.Component {
                     <div className="SpellList">
                         {entriesList}
                     </div>
+                    <SpellListNavigation/>
                 </div>
             );
         }
