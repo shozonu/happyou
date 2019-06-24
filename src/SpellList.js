@@ -18,12 +18,13 @@ class SpellList extends React.Component {
         this.fetchContent("http://www.dnd5eapi.co/api/spells/");
     }
     render() {
-        if(this.state.retrieved === true) {
+        if(this.state.retrieved) {
             // Display SpellListEntries from entire list
             // depending on current page and maximum entries per page
             let entriesList = [];
-            for(let i = (this.state.maxEntriesPerPage * (this.state.pageNumber - 1));
-            i < (this.state.pageNumber * this.state.maxEntriesPerPage) - 1; i++) {
+            let indexStart = this.state.maxEntriesPerPage * (this.state.pageNumber - 1);
+            let indexEnd = (this.state.pageNumber * this.state.maxEntriesPerPage) - 1;
+            for(let i = indexStart; i < indexEnd; i++) {
                 // Push the relevant entries to be displayed
                 let o = <SpellListEntry
                     key={i}
@@ -32,11 +33,8 @@ class SpellList extends React.Component {
                 />;
                 entriesList.push(o);
             }
-            console.log("(Re)rendering SpellList.");
-            console.log("displaying " +
-                (this.state.maxEntriesPerPage * (this.state.pageNumber - 1)) +
-                " - " +
-                ((this.state.pageNumber * this.state.maxEntriesPerPage) - 1));
+            console.log("(Re)rendering SpellList.\nDisplaying "
+                + indexStart + " - " + indexEnd);
 
             return(
                 <div className="App-content">
@@ -60,7 +58,7 @@ class SpellList extends React.Component {
         }
     }
     async fetchContent(url) {
-        if(this.state.retrieved === false) {
+        if(!this.state.retrieved) {
             let response = await fetch(url).then(result => {
                 return result.json();
             });
