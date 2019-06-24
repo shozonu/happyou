@@ -36,6 +36,10 @@ class SpellList extends React.Component {
                 ((this.state.pageNumber * this.state.pageMax) - 1));
             return(
                 <div className="App-content">
+                    <div className="SpellList-search-container">
+                        <input type="search" className="SpellList-search-input"/>
+                        <div className="SpellList-search-button"/>
+                    </div>
                     <div className="SpellList">
                         Results: {this.state.count}
                         {list}
