@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import SpellListEntry from './SpellListEntry';
+import SpellListSearchInput from './SpellListSearchInput';
+import SpellListSearchButton from './SpellListSearchButton';
 
 class SpellList extends React.Component {
     constructor(props) {
@@ -37,8 +39,8 @@ class SpellList extends React.Component {
             return(
                 <div className="App-content">
                     <div className="SpellList-search-container">
-                        <input type="search" className="SpellList-search-input"/>
-                        <div className="SpellList-search-button"/>
+                        <SpellListSearchInput/>
+                        <SpellListSearchButton/>
                     </div>
                     <div className="SpellList">
                         Results: {this.state.count}

@@ -92,6 +92,10 @@
     background-color: cyan;
     height: 80%;
     width: calc(4vw + 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
 }
 
 .Spell {
