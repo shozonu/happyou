@@ -25,6 +25,9 @@ class SpellList extends React.Component {
             let entriesList = [];
             let indexStart = this.state.maxEntriesPerPage * (this.state.pageNumber - 1);
             let indexEnd = (this.state.pageNumber * this.state.maxEntriesPerPage) - 1;
+            if(indexEnd > this.state.count) {
+                indexEnd = this.state.count - 1;
+            }
             for(let i = indexStart; i < indexEnd; i++) {
                 // Push the relevant entries to be displayed
                 let o = <SpellListEntry
@@ -43,7 +46,10 @@ class SpellList extends React.Component {
                         <SpellListSearchInput/>
                         <SpellListSearchButton/>
                     </div>
-                    <div>Results: {this.state.count}</div>
+                    <div>
+                        Displaying {(indexStart + 1) + "-" + (indexEnd + 1)}
+                        {" of " + this.state.count}
+                    </div>
                     <div className="SpellList">
                         {entriesList}
                     </div>
