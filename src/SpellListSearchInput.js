@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
-import SpellListEntry from './SpellListEntry';
 
 class SpellListSearchInput extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            input: ""
+        }
     }
     render() {
         return(

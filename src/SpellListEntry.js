@@ -29,7 +29,7 @@ class SpellListEntry extends React.Component {
                 }
             }));
         };
-        let e = <div onClick={f}>{this.state.name}</div>;
+        let e = <div onClick={f} className="SpellList-entry">{this.state.name}</div>;
         return e;
     }
 }

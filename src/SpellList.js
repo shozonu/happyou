@@ -42,8 +42,8 @@ class SpellList extends React.Component {
                         <SpellListSearchInput/>
                         <SpellListSearchButton/>
                     </div>
+                    <div>Results: {this.state.count}</div>
                     <div className="SpellList">
-                        Results: {this.state.count}
                         {list}
                     </div>
                 </div>
