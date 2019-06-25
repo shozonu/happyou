@@ -145,8 +145,11 @@
 .Spell-header {
     font-weight: bold;
 }
-.Spell-header-italic {
+.Spell-header-bold-italic {
     font-weight: bold;
+    font-style: italic;
+}
+.Spell-header-italic {
     font-style: italic;
 }
 .Spell-title {

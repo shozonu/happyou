@@ -13,7 +13,9 @@ class Spell extends React.Component {
         let content = [];
         if(this.state.desc != null) {
             content.push(
-                <div key={content.length} className="Spell-title">{this.state.name}</div>
+                <div key={content.length} className="Spell-title">
+                    {this.state.name}
+                </div>
             );
             content.push(
                 <div key={content.length} className="Spell-desc">
@@ -53,7 +55,7 @@ class Spell extends React.Component {
             if(this.state.higher_level != null) {
                 for(let i = 0; i < this.state.higher_level.length; i++) {
                     content.push(<div key={content.length} className="Spell-desc">
-                    <span className="Spell-header-italic">At Higher Levels. </span>
+                    <span className="Spell-header-bold-italic">At Higher Levels. </span>
                     {this.state.higher_level[i]}
                     </div>);
                 }
@@ -73,12 +75,16 @@ class Spell extends React.Component {
         });
         for(let i = 0; i < response.desc.length; i++) {
             let s = String(response.desc[i]);
-            response.desc[i] = s.replace(/â€™/g, "'");
+            s = s.replace(/(â€œ)|(â€�)/g, "\"");
+            s = s.replace(/â€™/g, "'");
+            response.desc[i] = s;
         }
         if(response.higher_level != null) {
             for(let i = 0; i < response.higher_level.length; i++) {
                 let s = String(response.higher_level[i]);
-                response.higher_level[i] = s.replace(/â€™/g, "'");
+                s = s.replace(/(â€œ)|(â€�)/g, "\"");
+                s = s.replace(/â€™/g, "'");
+                response.higher_level[i] = s;
             }
         }
         this.setState(response);
