@@ -135,7 +135,7 @@
     overflow-x: hidden;
 
     font-family: "Scaly Sans";
-    font-size: calc(1em + 8px);
+    font-size: calc(1em - 2px);
     font-style: normal;
     font-weight: normal;
     font-variant-caps: normal;
@@ -153,10 +153,11 @@
     font-style: italic;
 }
 .Spell-title {
+    font-size: calc(1em + 10px);
     font-variant-caps: petite-caps;
 }
 .Spell-desc {
-    font-size: calc(1em - 10px);
+    /* font-size: calc(1em - 10px); */
 }
 
 @keyframes App-logo-spin {

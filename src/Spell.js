@@ -18,13 +18,13 @@ class Spell extends React.Component {
                 </div>
             );
             content.push(
-                <div key={content.length} className="Spell-desc">
+                <div key={content.length}>
                     <span className="Spell-header">Casting Time: </span>
                     {this.state.casting_time}
                 </div>
             );
             content.push(
-                <div key={content.length} className="Spell-desc">
+                <div key={content.length}>
                     <span className="Spell-header">Range: </span>
                     {this.state.range}
                 </div>
@@ -34,13 +34,13 @@ class Spell extends React.Component {
                 mat = "(" + this.state.material + ")";
             }
             content.push(
-                <div key={content.length} className="Spell-desc">
+                <div key={content.length}>
                     <span className="Spell-header">Components: </span>
                     {this.state.components} {mat}
                 </div>
             );
             content.push(
-                <div key={content.length} className="Spell-desc">
+                <div key={content.length}>
                     <span className="Spell-header">Duration: </span>
                     {this.state.duration}
                 </div>
@@ -54,10 +54,14 @@ class Spell extends React.Component {
             }
             if(this.state.higher_level != null) {
                 for(let i = 0; i < this.state.higher_level.length; i++) {
-                    content.push(<div key={content.length} className="Spell-desc">
-                    <span className="Spell-header-bold-italic">At Higher Levels. </span>
-                    {this.state.higher_level[i]}
-                    </div>);
+                    content.push(
+                        <div key={content.length} className="Spell-desc">
+                            <span className="Spell-header-bold-italic">
+                                {"At Higher Levels. "}
+                            </span>
+                            {this.state.higher_level[i]}
+                        </div>
+                    );
                 }
             }
         }
