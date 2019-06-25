@@ -40,9 +40,13 @@ class SpellListNavigation extends React.Component {
     render() {
         return(
             <div className="SpellList-navigation">
-                <div onClick={this.pagePrev}>{"<<"}</div>
+                <div onClick={this.pagePrev} className="SpellList-navigation-button">
+                    {"<<"}
+                </div>
                 <div>{this.state.page}</div>
-                <div onClick={this.pageNext}>{">>"}</div>
+                <div onClick={this.pageNext} className="SpellList-navigation-button">
+                    {">>"}
+                </div>
             </div>
         );
     }
