@@ -34,7 +34,6 @@ class App extends React.Component {
     }
     handleChangeApp(e) {
         if(e.detail.changeTo !== this.state.app) {
-            console.log(e.detail.name + " was clicked. (" + e.detail.changeTo +")");
             this.setState({
                 app: e.detail.changeTo,
                 data: e.detail.data

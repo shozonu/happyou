@@ -9,14 +9,40 @@ class SpellList extends React.Component {
     constructor(props) {
         super(props);
         this.fetchContent = this.fetchContent.bind(this);
+        let url = "http://www.dnd5eapi.co/api/spells";
+        let endpoint = "/";
+        if(props.url != null) {
+            url = props.url;
+        }
+        if(props.endpoint != null) {
+            endpoint = props.endpoint;
+        }
         this.state = {
             count: 0,
             results: [],
             pageNumber: 1,
             maxEntriesPerPage: 16,
-            retrieved: false
+            retrieved: false,
+            url: url,
+            endpoint: endpoint
         };
-        this.fetchContent("http://www.dnd5eapi.co/api/spells/");
+        this.fetchContent(url + endpoint);
+    }
+    componentDidUpdate() {
+        if(this.state.count === 1) {
+            let app = document.getElementsByClassName("App");
+            let spell = this.state.results[0];
+            app[0].dispatchEvent(new CustomEvent("changeApp", {
+                bubbles: false,
+                detail: {
+                    name: spell.name,
+                    changeTo: "appSpell",
+                    data: {
+                        spell: spell
+                    }
+                }
+            }));
+        }
     }
     render() {
         if(this.state.retrieved) {
