@@ -28,7 +28,7 @@ class SpellList extends React.Component {
             if(indexEnd >= this.state.count - 1) {
                 indexEnd = this.state.count - 1;
             }
-            for(let i = indexStart; i < indexEnd; i++) {
+            for(let i = indexStart; i <= indexEnd; i++) {
                 // Push the relevant entries to be displayed
                 let o = <SpellListEntry
                     key={i}
