@@ -46,11 +46,6 @@ class App extends React.Component {
         let content;
         if(name === "appSpells") {
             content = (
-                <Spell url="http://www.dnd5eapi.co/api/spells/119/"/>
-            );
-        }
-        else if(name === "appSpellsTest") {
-            content = (
                 <Spell url = {this.state.data.spell.url} />
             );
         }
