@@ -129,8 +129,8 @@
 .Spell {
     background-color: #373c44;
     max-width: 66vw;
-    padding-left: 2.5vw;
-    padding-right: 2.5vw;
+    padding: 2.5vmin;
+    padding-top: 1vmin;
     overflow-y: auto;
     overflow-x: hidden;
 
