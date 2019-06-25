@@ -149,8 +149,9 @@
     font-weight: bold;
     font-style: italic;
 }
-.Spell-header-italic {
+.Spell-subtitle {
     font-style: italic;
+    padding-bottom: 1vmin;
 }
 .Spell-title {
     font-size: calc(1em + 10px);

@@ -17,6 +17,30 @@ class Spell extends React.Component {
                     {this.state.name}
                 </div>
             );
+            if(this.state.level !== 0 ){
+                let prefix = "th-level ";
+                if(this.state.level === 1) {
+                    prefix = "st-level ";
+                }
+                else if(this.state.level === 2) {
+                    prefix = "nd-level ";
+                }
+                else if(this.state.level === 3) {
+                    prefix = "rd-level ";
+                }
+                content.push(
+                    <div key={content.length} className="Spell-subtitle">
+                        {this.state.level + prefix} {this.state.school.name}
+                    </div>
+                );
+            }
+            else {
+                content.push(
+                    <div key={content.length} className="Spell-subtitle">
+                        {this.state.school.name} cantrip
+                    </div>
+                );
+            }
             content.push(
                 <div key={content.length}>
                     <span className="Spell-header">Casting Time: </span>
