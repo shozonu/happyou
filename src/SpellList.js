@@ -25,7 +25,7 @@ class SpellList extends React.Component {
             let entriesList = [];
             let indexStart = this.state.maxEntriesPerPage * (this.state.pageNumber - 1);
             let indexEnd = (this.state.pageNumber * this.state.maxEntriesPerPage) - 1;
-            if(indexEnd > this.state.count) {
+            if(indexEnd >= this.state.count - 1) {
                 indexEnd = this.state.count - 1;
             }
             for(let i = indexStart; i < indexEnd; i++) {
@@ -53,7 +53,7 @@ class SpellList extends React.Component {
                     <div className="SpellList">
                         {entriesList}
                     </div>
-                    <SpellListNavigation/>
+                    <SpellListNavigation spellList={this}/>
                 </div>
             );
         }
@@ -67,6 +67,7 @@ class SpellList extends React.Component {
     }
     async fetchContent(url) {
         if(!this.state.retrieved) {
+            console.log("Fetching content...");
             let response = await fetch(url).then(result => {
                 return result.json();
             });
