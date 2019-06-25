@@ -205,7 +205,7 @@
     visibility: visible;
     white-space: nowrap;
     padding-left: 1em;
-    width: auto;
+    width: calc(100% - 1em);
 }
 .side-container:hover > div:hover {
     background-color: #1d2329;
