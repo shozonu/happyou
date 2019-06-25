@@ -17,12 +17,12 @@ class SpellList extends React.Component {
         if(props.endpoint != null) {
             endpoint = props.endpoint;
         }
+        this.retrieved = false;
         this.state = {
             count: 0,
             results: [],
             pageNumber: 1,
             maxEntriesPerPage: 16,
-            retrieved: false,
             url: url,
             endpoint: endpoint
         };
@@ -45,7 +45,7 @@ class SpellList extends React.Component {
         }
     }
     render() {
-        if(this.state.retrieved) {
+        if(this.retrieved) {
             // Display SpellListEntries from entire list
             // depending on current page and maximum entries per page
             let entriesList = [];
@@ -92,17 +92,20 @@ class SpellList extends React.Component {
         }
     }
     async fetchContent(url) {
-        if(!this.state.retrieved) {
+        if(!this.retrieved) {
             console.log("Fetching content...");
             let response = await fetch(url).then(result => {
                 return result.json();
             });
+            this.retrieved = true;
             this.setState({
                 count: response.count,
                 results: response.results,
-                retrieved: true
             });
         }
+    }
+    search() {
+
     }
 }
 
