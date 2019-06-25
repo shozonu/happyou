@@ -20,7 +20,7 @@ class SpellListEntry extends React.Component {
                 bubbles: false,
                 detail: {
                     name: context.state.name,
-                    changeTo: "appSpellsTest",
+                    changeTo: "appSpell",
                     data: {
                         spell: {
                             url: context.state.url

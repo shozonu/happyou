@@ -44,7 +44,7 @@ class App extends React.Component {
     getApp() {
         let name = this.state.app;
         let content;
-        if(name === "appSpells") {
+        if(name === "appSpell") {
             content = (
                 <Spell url = {this.state.data.spell.url} />
             );
