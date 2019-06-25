@@ -53,22 +53,30 @@ class Spell extends React.Component {
                     {this.state.range}
                 </div>
             );
-            let mat = "";
-            if(this.state.material != null) {
-                mat = "(" + this.state.material + ")";
+            {
+                let mat = "";
+                if(this.state.material != null) {
+                    mat = "(" + this.state.material + ")";
+                }
+                content.push(
+                    <div key={content.length}>
+                        <span className="Spell-header">Components: </span>
+                        {this.state.components} {mat}
+                    </div>
+                );
             }
-            content.push(
-                <div key={content.length}>
-                    <span className="Spell-header">Components: </span>
-                    {this.state.components} {mat}
-                </div>
-            );
-            content.push(
-                <div key={content.length}>
-                    <span className="Spell-header">Duration: </span>
-                    {this.state.duration}
-                </div>
-            );
+            {
+                let concen = "";
+                if(this.state.concentration === "yes") {
+                    concen = " (concentration)";
+                }
+                content.push(
+                    <div key={content.length}>
+                        <span className="Spell-header">Duration: </span>
+                        {this.state.duration + concen}
+                    </div>
+                );
+            }
             for(let i = 0; i < this.state.desc.length; i++) {
                 content.push(
                     <div key={content.length} className="Spell-desc">
