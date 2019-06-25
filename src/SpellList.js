@@ -9,6 +9,7 @@ class SpellList extends React.Component {
     constructor(props) {
         super(props);
         this.fetchContent = this.fetchContent.bind(this);
+        this.search = this.search.bind(this);
         let url = "http://www.dnd5eapi.co/api/spells";
         let endpoint = "/";
         if(props.url != null) {
@@ -105,7 +106,8 @@ class SpellList extends React.Component {
         }
     }
     search() {
-
+        let terms = document.getElementsByClassName("SpellList-search-input")[0].value;
+        console.log("Seaching terms: " + terms);
     }
 }
 

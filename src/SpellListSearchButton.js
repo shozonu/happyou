@@ -9,6 +9,7 @@ class SpellListSearchButton extends React.Component {
     }
     submit() {
         console.log("Search submitted.");
+        this.spellList.search();
     }
     render() {
         return(
