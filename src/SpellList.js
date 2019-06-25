@@ -69,8 +69,8 @@ class SpellList extends React.Component {
             return(
                 <div className="App-content">
                     <div className="SpellList-search-container">
-                        <SpellListSearchInput/>
-                        <SpellListSearchButton/>
+                        <SpellListSearchInput spellList={this}/>
+                        <SpellListSearchButton spellList={this}/>
                     </div>
                     <div>
                         Displaying {(indexStart + 1) + "-" + (indexEnd + 1)}
