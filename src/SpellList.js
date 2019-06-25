@@ -47,42 +47,57 @@ class SpellList extends React.Component {
     }
     render() {
         if(this.retrieved) {
-            // Display SpellListEntries from entire list
-            // depending on current page and maximum entries per page
-            let entriesList = [];
-            let indexStart = this.state.maxEntriesPerPage * (this.state.pageNumber - 1);
-            let indexEnd = (this.state.pageNumber * this.state.maxEntriesPerPage) - 1;
-            if(indexEnd >= this.state.count - 1) {
-                indexEnd = this.state.count - 1;
-            }
-            for(let i = indexStart; i <= indexEnd; i++) {
-                // Push the relevant entries to be displayed
-                let o = <SpellListEntry
-                    key={i}
-                    name={this.state.results[i].name}
-                    url={this.state.results[i].url}
-                />;
-                entriesList.push(o);
-            }
-            console.log("(Re)rendering SpellList.\nDisplaying "
-                + indexStart + " - " + indexEnd);
+            if(this.state.count > 0) {
+                // Display SpellListEntries from entire list
+                // depending on current page and maximum entries per page
+                let entriesList = [];
+                let indexStart = this.state.maxEntriesPerPage * (this.state.pageNumber - 1);
+                let indexEnd = (this.state.pageNumber * this.state.maxEntriesPerPage) - 1;
+                if(indexEnd >= this.state.count - 1) {
+                    indexEnd = this.state.count - 1;
+                }
+                for(let i = indexStart; i <= indexEnd; i++) {
+                    // Push the relevant entries to be displayed
+                    let o = <SpellListEntry
+                        key={i}
+                        name={this.state.results[i].name}
+                        url={this.state.results[i].url}
+                    />;
+                    entriesList.push(o);
+                }
+                console.log("(Re)rendering SpellList.\nDisplaying "
+                    + indexStart + " - " + indexEnd);
 
-            return(
-                <div className="App-content">
-                    <div className="SpellList-search-container">
-                        <SpellListSearchInput spellList={this}/>
-                        <SpellListSearchButton spellList={this}/>
+                return(
+                    <div className="App-content">
+                        <div className="SpellList-search-container">
+                            <SpellListSearchInput spellList={this}/>
+                            <SpellListSearchButton spellList={this}/>
+                        </div>
+                        <div>
+                            Displaying {(indexStart + 1) + "-" + (indexEnd + 1)}
+                            {" of " + this.state.count}
+                        </div>
+                        <div className="SpellList">
+                            {entriesList}
+                        </div>
+                        <SpellListNavigation spellList={this}/>
                     </div>
-                    <div>
-                        Displaying {(indexStart + 1) + "-" + (indexEnd + 1)}
-                        {" of " + this.state.count}
+                );
+            }
+            else {
+                return(
+                    <div className="App-content">
+                        <div className="SpellList-search-container">
+                            <SpellListSearchInput spellList={this}/>
+                            <SpellListSearchButton spellList={this}/>
+                        </div>
+                        <div>
+                            No Results
+                        </div>
                     </div>
-                    <div className="SpellList">
-                        {entriesList}
-                    </div>
-                    <SpellListNavigation spellList={this}/>
-                </div>
-            );
+                );
+            }
         }
         else {
             return(
@@ -106,8 +121,15 @@ class SpellList extends React.Component {
         }
     }
     search() {
-        let terms = document.getElementsByClassName("SpellList-search-input")[0].value;
+        let terms = document
+            .getElementsByClassName("SpellList-search-input")[0]
+            .value;
         console.log("Seaching terms: " + terms);
+        terms = String(terms).replace(/\s+/g, "+");
+        this.retrieved = false;
+        let url = this.state.url + "?name=" + terms;
+        console.log(url);
+        this.fetchContent(url);
     }
 }
 
