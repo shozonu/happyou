@@ -109,6 +109,10 @@ class Spell extends React.Component {
         let response = await fetch(url).then(result => {
             return result.json();
         });
+        if(response.material != null) {
+            let s = stringCorrectify(response.material);
+            response.material = s;
+        }
         for(let i = 0; i < response.desc.length; i++) {
             let s = stringCorrectify(response.desc[i]);
             response.desc[i] = s;
