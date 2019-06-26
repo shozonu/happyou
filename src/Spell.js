@@ -110,21 +110,24 @@ class Spell extends React.Component {
             return result.json();
         });
         for(let i = 0; i < response.desc.length; i++) {
-            let s = String(response.desc[i]);
-            s = s.replace(/(â€œ)|(â€�)/g, "\"");
-            s = s.replace(/â€™/g, "'");
+            let s = stringCorrectify(response.desc[i]);
             response.desc[i] = s;
         }
         if(response.higher_level != null) {
             for(let i = 0; i < response.higher_level.length; i++) {
-                let s = String(response.higher_level[i]);
-                s = s.replace(/(â€œ)|(â€�)/g, "\"");
-                s = s.replace(/â€™/g, "'");
+                let s = stringCorrectify(response.higher_level[i]);
                 response.higher_level[i] = s;
             }
         }
         this.setState(response);
     }
+}
+
+function stringCorrectify(input) {
+    let s = String(input);
+    s = s.replace(/(â€œ)|(â€�)/g, "\"");
+    s = s.replace(/â€™/g, "'");
+    return s;
 }
 
 export default Spell;
