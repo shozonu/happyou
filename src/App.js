@@ -8,6 +8,12 @@ class App extends React.Component {
         super(props);
         this.handleChangeApp = this.handleChangeApp.bind(this);
         this.getApp = this.getApp.bind(this);
+        this.cache = {
+            spellList: {
+                retrieved: false,
+                entries: []
+            }
+        };
         if(props.app != null) {
             this.state = {
                 app: props.app,
@@ -58,7 +64,7 @@ class App extends React.Component {
         else if(name === "appSpellList") {
             content = (
                 <div className="App-content">
-                    <SpellList />
+                    <SpellList app={this}/>
                 </div>
             );
         }

@@ -10,6 +10,7 @@ class SpellList extends React.Component {
         super(props);
         this.fetchContent = this.fetchContent.bind(this);
         this.search = this.search.bind(this);
+        this.app = props.app;
         let url = "http://www.dnd5eapi.co/api/spells";
         let endpoint = "/";
         if(props.url != null) {
@@ -18,7 +19,6 @@ class SpellList extends React.Component {
         if(props.endpoint != null) {
             endpoint = props.endpoint;
         }
-        this.retrieved = false;
         this.state = {
             count: 0,
             results: [],
@@ -27,7 +27,9 @@ class SpellList extends React.Component {
             url: url,
             endpoint: endpoint
         };
-        this.fetchContent(url + endpoint);
+    }
+    componentDidMount() {
+        this.fetchContent(this.state.url + this.state.endpoint);
     }
     componentDidUpdate() {
         if(this.state.count === 1) {
@@ -46,7 +48,7 @@ class SpellList extends React.Component {
         }
     }
     render() {
-        if(this.retrieved) {
+        if(this.app.cache.spellList.retrieved) {
             if(this.state.count > 0) {
                 // Display SpellListEntries from entire list
                 // depending on current page and maximum entries per page
@@ -65,8 +67,8 @@ class SpellList extends React.Component {
                     />;
                     entriesList.push(o);
                 }
-                console.log("(Re)rendering SpellList.\nDisplaying "
-                    + indexStart + " - " + indexEnd);
+                console.log("Displaying "
+                    + indexStart + " - " + indexEnd + ".");
 
                 return(
                     <div className="App-content">
@@ -108,15 +110,24 @@ class SpellList extends React.Component {
         }
     }
     async fetchContent(url) {
-        if(!this.retrieved) {
-            console.log("Fetching content...");
+        if(!this.app.cache.spellList.retrieved) {
+            console.log("Fetching SpellList content...");
             let response = await fetch(url).then(result => {
                 return result.json();
             });
-            this.retrieved = true;
+            this.app.cache.spellList.retrieved = true;
+            this.app.cache.spellList.entries = response.results;
             this.setState({
                 count: response.count,
-                results: response.results,
+                results: response.results
+            });
+        }
+        else {
+            console.log("Using SpellList content from cache...");
+            this.app.cache.spellList.retrieved = true;
+            this.setState({
+                count: this.app.cache.spellList.entries.length,
+                results: this.app.cache.spellList.entries
             });
         }
     }
@@ -126,7 +137,7 @@ class SpellList extends React.Component {
             .value;
         console.log("Seaching terms: " + terms);
         terms = String(terms).replace(/\s+/g, "+");
-        this.retrieved = false;
+        this.app.cache.spellList.retrieved = false;
         let url = this.state.url + "?name=" + terms;
         console.log(url);
         this.fetchContent(url);
