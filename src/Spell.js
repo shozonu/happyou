@@ -9,7 +9,6 @@ class Spell extends React.Component {
         this.fetchContent(props.url);
     }
     render() {
-        console.log("(Re)rendering Spell.");
         let content = [];
         if(this.state.desc != null) {
             content.push(
@@ -96,14 +95,21 @@ class Spell extends React.Component {
                     );
                 }
             }
-        }
-        return(
-            <div className="App-content">
-                <div className="Spell">
-                    {content}
+            return(
+                <div className="App-content">
+                    <div className="Spell">
+                        {content}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return(
+                <div className="App-content">
+                    Loading spell...
+                </div>
+            );
+        }
     }
     async fetchContent(url) {
         let response = await fetch(url).then(result => {

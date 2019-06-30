@@ -104,7 +104,7 @@ class SpellList extends React.Component {
         else {
             return(
                 <div className="App-content">
-                    <div>Loading</div>
+                    <div>Loading...</div>
                 </div>
             );
         }
@@ -131,16 +131,17 @@ class SpellList extends React.Component {
             });
         }
     }
-    search() {
+    async search() {
+        this.app.cache.spellList.retrieved = false;
         let terms = document
             .getElementsByClassName("SpellList-search-input")[0]
             .value;
         console.log("Seaching terms: " + terms);
         terms = String(terms).replace(/\s+/g, "+");
-        this.app.cache.spellList.retrieved = false;
         let url = this.state.url + "?name=" + terms;
         console.log(url);
-        this.fetchContent(url);
+        await this.fetchContent(url);
+        this.app.cache.spellList.retrieved = false;
     }
 }
 
