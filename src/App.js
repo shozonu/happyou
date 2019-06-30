@@ -12,7 +12,8 @@ class App extends React.Component {
             spellList: {
                 retrieved: false,
                 entries: []
-            }
+            },
+            spell: new Map()
         };
         if(props.app != null) {
             this.state = {
