@@ -122,8 +122,13 @@ class SpellList extends React.Component {
             let response = await fetch(url).then(result => {
                 return result.json();
             });
+            let array = [];
+            for(let obj of response.results) {
+                let a = [obj.name.toLowerCase(), obj];
+                array.push(a);
+            }
+            this.app.cache.spellList.entries = new Map(array);
             this.app.cache.spellList.retrieved = true;
-            this.app.cache.spellList.entries = response.results;
             this.setState({
                 count: response.count,
                 results: response.results
@@ -145,9 +150,13 @@ class SpellList extends React.Component {
     async localSearch(getAll = false) {
         if(getAll) {
             console.log("Retrieving SpellList from cache...");
+            let array = [];
+            this.app.cache.spellList.entries.forEach((value, key) => {
+                array.push(value);
+            });
             this.setState({
-                count: this.app.cache.spellList.entries.length,
-                results: this.app.cache.spellList.entries
+                count: array.length,
+                results: array
             });
         }
         else {
@@ -156,8 +165,20 @@ class SpellList extends React.Component {
                 .getElementsByClassName("SpellList-search-input")[0]
                 .value;
             console.log("Searching terms (local): " + input);
-            let inputNormalized = String(input).trim().replace(/\s+/g, " ").toLowerCase();
-
+            let inputNormalized = String(input)
+                .trim()
+                .replace(/\s+/g, " ")
+                .toLowerCase();
+            let results = [];
+            if(this.app.cache.spellList.entries.has(inputNormalized)) {
+                let obj = this.app.cache.spellList.entries.get(inputNormalized);
+                console.log(obj);
+                results.push(obj);
+            }
+            this.setState({
+                count: results.length,
+                results: results
+            });
             // Make array of API-safe terms.
             let terms = input.split(" ");
             terms.forEach((word) => {
