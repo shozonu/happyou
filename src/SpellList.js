@@ -122,12 +122,10 @@ class SpellList extends React.Component {
             let response = await fetch(url).then(result => {
                 return result.json();
             });
-            let array = [];
+            this.app.cache.spellList.entries = new Map();
             for(let obj of response.results) {
-                let a = [obj.name.toLowerCase(), obj];
-                array.push(a);
+                this.app.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
             }
-            this.app.cache.spellList.entries = new Map(array);
             this.app.cache.spellList.retrieved = true;
             this.setState({
                 count: response.count,
@@ -164,7 +162,7 @@ class SpellList extends React.Component {
             let input = document
                 .getElementsByClassName("SpellList-search-input")[0]
                 .value;
-            console.log("Searching terms (local): " + input);
+            console.log("Searching terms from cache: " + input);
             let inputNormalized = String(input)
                 .trim()
                 .replace(/\s+/g, " ")
@@ -172,7 +170,6 @@ class SpellList extends React.Component {
             let results = [];
             if(this.app.cache.spellList.entries.has(inputNormalized)) {
                 let obj = this.app.cache.spellList.entries.get(inputNormalized);
-                console.log(obj);
                 results.push(obj);
             }
             this.setState({

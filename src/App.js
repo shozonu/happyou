@@ -11,7 +11,7 @@ class App extends React.Component {
         this.cache = {
             spellList: {
                 retrieved: false,
-                entries: null
+                entries: null,
             },
             spell: new Map()
         };
