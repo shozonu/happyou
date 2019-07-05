@@ -5,6 +5,7 @@ class Spell extends React.Component {
     constructor(props) {
         super(props);
         this.fetchContent = this.fetchContent.bind(this);
+        this.app = props.app;
         this.state = {};
         this.fetchContent(props.url);
     }
