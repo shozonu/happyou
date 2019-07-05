@@ -6,14 +6,23 @@ class SpellListNavigation extends React.Component {
         super(props);
         this.pagePrev = this.pagePrev.bind(this);
         this.pageNext = this.pageNext.bind(this);
+        this.calcMaxPages = this.calcMaxPages.bind(this);
         this.spellList = props.spellList;
-        this.maxPages = Math.ceil(
-            this.spellList.state.count
-            / this.spellList.state.maxEntriesPerPage
-        );
+        this.maxPages = this.calcMaxPages();
         this.state = {
             page: 1
         }
+    }
+    componentWillUpdate() {
+        this.maxPages = this.calcMaxPages();
+    }
+    calcMaxPages() {
+        return(
+            Math.ceil(
+                this.spellList.state.count
+                / this.spellList.state.maxEntriesPerPage
+            )
+        );
     }
     pagePrev() {
         if(this.state.page > 1) {
