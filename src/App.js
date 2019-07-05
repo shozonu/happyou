@@ -52,7 +52,7 @@ class App extends React.Component {
         let content;
         if(name === "appSpell") {
             content = (
-                <Spell url = {this.state.data.spell.url} />
+                <Spell url={this.state.data.spell.url} app={this}/>
             );
         }
         else if(name === "appTest") {
