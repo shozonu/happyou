@@ -29,11 +29,6 @@ class SpellList extends React.Component {
             endpoint: endpoint
         };
     }
-    componentDidMount() {
-        if(this.app.cache.spellList.retrieved) {
-            this.localSearch(true);
-        }
-    }
     componentDidUpdate() {
         if(this.state.count === 1) {
             let app = document.getElementsByClassName("App");
@@ -49,7 +44,7 @@ class SpellList extends React.Component {
                 }
             }));
         }
-        console.log("render() finished.");
+        console.log("SpellList.render() finished.");
     }
     render() {
         // Entries do not properly re-render when doing search.
@@ -98,7 +93,7 @@ class SpellList extends React.Component {
                             <SpellListSearchInput spellList={this}/>
                             <SpellListSearchButton spellList={this}/>
                         </div>
-                        <div>
+                        <div style={{paddingBottom: 33}}>
                             No Results
                         </div>
                         <SpellListNavigation ref={this.nav} spellList={this}/>
@@ -109,7 +104,9 @@ class SpellList extends React.Component {
         else {
             return(
                 <div className="App-content">
-                    <div>Loading...</div>
+                    <div style={{paddingBottom: 33}}>
+                        Loading...
+                    </div>
                     <SpellListNavigation ref={this.nav} spellList={this}/>
                 </div>
             );
