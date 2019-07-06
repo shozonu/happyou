@@ -9,7 +9,6 @@ class SpellList extends React.Component {
     constructor(props) {
         super(props);
         this.nav = React.createRef();
-        this.fetchContent = this.fetchContent.bind(this);
         this.search = this.search.bind(this);
         this.localSearch = this.localSearch.bind(this);
         this.app = props.app;
@@ -33,9 +32,6 @@ class SpellList extends React.Component {
     componentDidMount() {
         if(this.app.cache.spellList.retrieved) {
             this.localSearch(true);
-        }
-        else {
-            this.fetchContent(this.state.url + this.state.endpoint);
         }
     }
     componentDidUpdate() {
@@ -78,7 +74,6 @@ class SpellList extends React.Component {
                     />;
                     entriesList.push(o);
                 }
-                console.log("rendering entriesList w/: " + entriesList.length + " elements.");
                 return(
                     <div className="App-content">
                         <div className="SpellList-search-container">
@@ -106,6 +101,7 @@ class SpellList extends React.Component {
                         <div>
                             No Results
                         </div>
+                        <SpellListNavigation ref={this.nav} spellList={this}/>
                     </div>
                 );
             }
@@ -114,26 +110,9 @@ class SpellList extends React.Component {
             return(
                 <div className="App-content">
                     <div>Loading...</div>
+                    <SpellListNavigation ref={this.nav} spellList={this}/>
                 </div>
             );
-        }
-    }
-    async fetchContent(url) {
-        // Called only once on the first time loading SpellList.
-        if(!this.app.cache.spellList.retrieved) {
-            console.log("Fetching SpellList content...");
-            let response = await fetch(url).then(result => {
-                return result.json();
-            });
-            this.app.cache.spellList.entries = new Map();
-            for(let obj of response.results) {
-                this.app.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
-            }
-            this.app.cache.spellList.retrieved = true;
-            this.setState({
-                count: response.count,
-                results: response.results
-            });
         }
     }
     async search() {

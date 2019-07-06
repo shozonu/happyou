@@ -6,27 +6,26 @@ import './App.css';
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.spellList = React.createRef();
         this.handleChangeApp = this.handleChangeApp.bind(this);
         this.getApp = this.getApp.bind(this);
+        this.fetchContent = this.fetchContent.bind(this);
         this.cache = {
             spellList: {
                 retrieved: false,
                 entries: null,
+                url: "http://www.dnd5eapi.co/api/spells"
             },
             spell: new Map()
         };
+        let appName = "None. Click one of the sidebar entries!";
         if(props.app != null) {
-            this.state = {
-                app: props.app,
-                data: {}
-            };
+            appName = props.app;
         }
-        else {
-            this.state = {
-                app: "None. Click one of the sidebar entries!",
-                data: {}
-            };
-        }
+        this.state = {
+            app: appName,
+            data: {}
+        };
     }
     componentDidMount() {
         this.setState({appObj: this.getApp("default")});
@@ -55,17 +54,13 @@ class App extends React.Component {
                 <Spell url={this.state.data.spell.url} app={this}/>
             );
         }
-        else if(name === "appTest") {
-            content = (
-                <div className="App-content">
-                    <Test content="testing content" />
-                </div>
-            );
-        }
         else if(name === "appSpellList") {
+            if(!this.cache.spellList.retrieved) {
+                this.fetchContent(this.cache.spellList.url);
+            }
             content = (
                 <div className="App-content">
-                    <SpellList app={this}/>
+                    <SpellList app={this} ref={this.spellList}/>
                 </div>
             );
         }
@@ -85,20 +80,22 @@ class App extends React.Component {
             </div>
         );
     }
-}
-class Test extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            content: props.content
-        };
-    }
-    render() {
-        return(
-            <div className="App-content">
-                <div>{this.state.content}</div>
-            </div>
-        );
+    async fetchContent(url) {
+        // Called only once on the first time loading SpellList.
+        if(!this.cache.spellList.retrieved) {
+            console.log("Fetching SpellList content...");
+            let response = await fetch(url).then(result => {
+                console.log("Response received.");
+                return result.json();
+            });
+            this.cache.spellList.entries = new Map();
+            for(let obj of response.results) {
+                this.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
+            }
+            this.cache.spellList.retrieved = true;
+            console.log("Saved " + response.count + " to App cache.");
+            this.spellList.current.forceUpdate();
+        }
     }
 }
 
