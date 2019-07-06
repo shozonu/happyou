@@ -9,9 +9,6 @@ class SpellListEntry extends React.Component {
             url: props.url
         };
     }
-    componentDidMount() {
-        //
-    }
     render() {
         const context = this;
         let f = function() {
