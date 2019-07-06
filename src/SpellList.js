@@ -8,6 +8,7 @@ import SpellListNavigation from './SpellListNavigation';
 class SpellList extends React.Component {
     constructor(props) {
         super(props);
+        this.nav = React.createRef();
         this.fetchContent = this.fetchContent.bind(this);
         this.search = this.search.bind(this);
         this.localSearch = this.localSearch.bind(this);
@@ -54,6 +55,8 @@ class SpellList extends React.Component {
         }
     }
     render() {
+        // Entries do not properly re-render when doing search.
+        // Search results seem to be appended to current results list.
         if(this.app.cache.spellList.retrieved) {
             if(this.state.count > 0) {
                 // Display SpellListEntries from entire list
@@ -73,6 +76,7 @@ class SpellList extends React.Component {
                     />;
                     entriesList.push(o);
                 }
+
                 console.log("Displaying "
                     + indexStart + " - " + indexEnd + ".");
 
@@ -89,7 +93,7 @@ class SpellList extends React.Component {
                         <div className="SpellList">
                             {entriesList}
                         </div>
-                        <SpellListNavigation spellList={this}/>
+                        <SpellListNavigation ref={this.nav} spellList={this}/>
                     </div>
                 );
             }
@@ -169,20 +173,45 @@ class SpellList extends React.Component {
                 .toLowerCase();
             let results = [];
             if(this.app.cache.spellList.entries.has(inputNormalized)) {
+                // If there is an exact match, return the match.
                 let obj = this.app.cache.spellList.entries.get(inputNormalized);
                 results.push(obj);
             }
+            else {
+                // If there is no exact match, return individual term matches.
+                if(inputNormalized.match(/\w+/g) != null) {
+                    // If search input is not only white space.
+                    let terms = inputNormalized.split(" ");
+                    let str = "";
+                    for(let i = 0; i < terms.length; i++) {
+                        let word = "(" + terms[i] + ")";
+                        if(i < terms.length - 1) {
+                            word = word.concat("|");
+                        }
+                        str = str.concat(word);
+                    }
+                    let regex = new RegExp(str,"g");
+                    this.app.cache.spellList.entries.forEach((value, key) => {
+                        // Add spell name to array if there is a match.
+                        let m = key.match(regex);
+                        if(m != null) {
+                            results.push(value);
+                        }
+                    });
+                }
+                else {
+                    this.app.cache.spellList.entries.forEach((value, key) => {
+                        results.push(value);
+                    });
+                }
+            }
+            this.nav.current.setState({
+                page: 1
+            });
             this.setState({
                 count: results.length,
-                results: results
-            });
-            // Make array of API-safe terms.
-            let terms = input.split(" ");
-            terms.forEach((word) => {
-                // Capitalize first character of each word.
-                let c = word.substr(0,1);
-                c = c.toUpperCase();
-                return word.replace(/^\w/g, c);
+                results: results,
+                pageNumber: 1
             });
         }
     }
