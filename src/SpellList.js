@@ -53,10 +53,12 @@ class SpellList extends React.Component {
                 }
             }));
         }
+        console.log("render() finished.");
     }
     render() {
         // Entries do not properly re-render when doing search.
         // Search results seem to be appended to current results list.
+        // Asynchronous nature of setState may be related?
         if(this.app.cache.spellList.retrieved) {
             if(this.state.count > 0) {
                 // Display SpellListEntries from entire list
@@ -76,10 +78,7 @@ class SpellList extends React.Component {
                     />;
                     entriesList.push(o);
                 }
-
-                console.log("Displaying "
-                    + indexStart + " - " + indexEnd + ".");
-
+                console.log("rendering entriesList w/: " + entriesList.length + " elements.");
                 return(
                     <div className="App-content">
                         <div className="SpellList-search-container">
