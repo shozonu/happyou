@@ -13,15 +13,13 @@ class SpellListSearchButton extends React.Component {
         this.element.current.addEventListener("searchEnterKeypress", this.submit);
     }
     submit(e = null) {
-        console.log("Search submitted.");
         this.spellList.ready = false;
         this.spellList.setState({
             count: 0,
             result: [],
-        });
-        setTimeout(() => {
+        }, () => {
             this.spellList.localSearch();
-        }, 100);
+        });
     }
     render() {
         return(
