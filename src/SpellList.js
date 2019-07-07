@@ -145,11 +145,11 @@ class SpellList extends React.Component {
             this.app.cache.spellList.entries.forEach((value, key) => {
                 array.push(value);
             });
+            this.ready = true;
             this.setState({
                 count: array.length,
                 results: array,
             });
-            this.ready = true;
         }
         else {
             // This section should only execute by a term search.
@@ -198,12 +198,12 @@ class SpellList extends React.Component {
             this.nav.current.setState({
                 page: 1
             });
+            this.ready = true;
             this.setState({
                 count: results.length,
                 results: results,
                 pageNumber: 1,
             });
-            this.ready = true;
         }
     }
 }

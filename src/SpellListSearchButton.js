@@ -19,7 +19,9 @@ class SpellListSearchButton extends React.Component {
             count: 0,
             result: [],
         });
-        setTimeout(() => {this.spellList.localSearch()}, 100);
+        setTimeout(() => {
+            this.spellList.localSearch();
+        }, 100);
     }
     render() {
         return(
