@@ -9,7 +9,6 @@ class SpellList extends React.Component {
     constructor(props) {
         super(props);
         this.nav = React.createRef();
-        this.fetchContent = this.fetchContent.bind(this);
         this.search = this.search.bind(this);
         this.localSearch = this.localSearch.bind(this);
         this.app = props.app;
@@ -27,16 +26,19 @@ class SpellList extends React.Component {
             pageNumber: 1,
             maxEntriesPerPage: 16,
             url: url,
-            endpoint: endpoint
+            endpoint: endpoint,
         };
+        this.ready = false;
     }
     componentDidMount() {
+        // Invoking localSearch here causes previous results to remain in searches.
         if(this.app.cache.spellList.retrieved) {
             this.localSearch(true);
         }
         else {
-            this.fetchContent(this.state.url + this.state.endpoint);
+            setTimeout(() => {this.localSearch(true)}, 500);
         }
+        console.log("SpellList mounted.");
     }
     componentDidUpdate() {
         if(this.state.count === 1) {
@@ -53,7 +55,6 @@ class SpellList extends React.Component {
                 }
             }));
         }
-        console.log("render() finished.");
     }
     render() {
         // Entries do not properly re-render when doing search.
@@ -78,7 +79,6 @@ class SpellList extends React.Component {
                     />;
                     entriesList.push(o);
                 }
-                console.log("rendering entriesList w/: " + entriesList.length + " elements.");
                 return(
                     <div className="App-content">
                         <div className="SpellList-search-container">
@@ -97,15 +97,20 @@ class SpellList extends React.Component {
                 );
             }
             else {
+                let msg = "No Results";
+                if(!this.ready) {
+                    msg = "Loading ..."
+                }
                 return(
                     <div className="App-content">
                         <div className="SpellList-search-container">
                             <SpellListSearchInput spellList={this}/>
                             <SpellListSearchButton spellList={this}/>
                         </div>
-                        <div>
-                            No Results
+                        <div style={{paddingBottom: 33}}>
+                            {msg}
                         </div>
+                        <SpellListNavigation ref={this.nav} spellList={this}/>
                     </div>
                 );
             }
@@ -113,27 +118,12 @@ class SpellList extends React.Component {
         else {
             return(
                 <div className="App-content">
-                    <div>Loading...</div>
+                    <div style={{paddingBottom: 33}}>
+                        Loading...
+                    </div>
+                    <SpellListNavigation ref={this.nav} spellList={this}/>
                 </div>
             );
-        }
-    }
-    async fetchContent(url) {
-        // Called only once on the first time loading SpellList.
-        if(!this.app.cache.spellList.retrieved) {
-            console.log("Fetching SpellList content...");
-            let response = await fetch(url).then(result => {
-                return result.json();
-            });
-            this.app.cache.spellList.entries = new Map();
-            for(let obj of response.results) {
-                this.app.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
-            }
-            this.app.cache.spellList.retrieved = true;
-            this.setState({
-                count: response.count,
-                results: response.results
-            });
         }
     }
     async search() {
@@ -155,9 +145,10 @@ class SpellList extends React.Component {
             this.app.cache.spellList.entries.forEach((value, key) => {
                 array.push(value);
             });
+            this.ready = true;
             this.setState({
                 count: array.length,
-                results: array
+                results: array,
             });
         }
         else {
@@ -207,10 +198,11 @@ class SpellList extends React.Component {
             this.nav.current.setState({
                 page: 1
             });
+            this.ready = true;
             this.setState({
                 count: results.length,
                 results: results,
-                pageNumber: 1
+                pageNumber: 1,
             });
         }
     }
