@@ -26,8 +26,19 @@ class SpellList extends React.Component {
             pageNumber: 1,
             maxEntriesPerPage: 16,
             url: url,
-            endpoint: endpoint
+            endpoint: endpoint,
         };
+        this.ready = false;
+    }
+    componentDidMount() {
+        // Invoking localSearch here causes previous results to remain in searches.
+        if(this.app.cache.spellList.retrieved) {
+            this.localSearch(true);
+        }
+        else {
+            setTimeout(() => {this.localSearch(true)}, 500);
+        }
+        console.log("SpellList mounted.");
     }
     componentDidUpdate() {
         if(this.state.count === 1) {
@@ -44,7 +55,6 @@ class SpellList extends React.Component {
                 }
             }));
         }
-        console.log("SpellList.render() finished.");
     }
     render() {
         // Entries do not properly re-render when doing search.
@@ -87,6 +97,10 @@ class SpellList extends React.Component {
                 );
             }
             else {
+                let msg = "No Results";
+                if(!this.ready) {
+                    msg = "Loading ..."
+                }
                 return(
                     <div className="App-content">
                         <div className="SpellList-search-container">
@@ -94,7 +108,7 @@ class SpellList extends React.Component {
                             <SpellListSearchButton spellList={this}/>
                         </div>
                         <div style={{paddingBottom: 33}}>
-                            No Results
+                            {msg}
                         </div>
                         <SpellListNavigation ref={this.nav} spellList={this}/>
                     </div>
@@ -133,8 +147,9 @@ class SpellList extends React.Component {
             });
             this.setState({
                 count: array.length,
-                results: array
+                results: array,
             });
+            this.ready = true;
         }
         else {
             // This section should only execute by a term search.
@@ -186,8 +201,9 @@ class SpellList extends React.Component {
             this.setState({
                 count: results.length,
                 results: results,
-                pageNumber: 1
+                pageNumber: 1,
             });
+            this.ready = true;
         }
     }
 }

@@ -9,7 +9,12 @@ class SpellListSearchButton extends React.Component {
     }
     submit() {
         console.log("Search submitted.");
-        this.spellList.localSearch();
+        this.spellList.ready = false;
+        this.spellList.setState({
+            count: 0,
+            result: [],
+        });
+        setTimeout(() => {this.spellList.localSearch()}, 100);
     }
     render() {
         return(

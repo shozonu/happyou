@@ -7,8 +7,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.spellList = React.createRef();
+        this.element = React.createRef();
         this.handleChangeApp = this.handleChangeApp.bind(this);
-        this.getApp = this.getApp.bind(this);
         this.fetchContent = this.fetchContent.bind(this);
         this.cache = {
             spellList: {
@@ -28,25 +28,16 @@ class App extends React.Component {
         };
     }
     componentDidMount() {
-        this.setState({appObj: this.getApp("default")});
-        this.element.addEventListener("changeApp", this.handleChangeApp);
+        this.setState({
+            app: "default"
+        });
+        this.element.current.addEventListener("changeApp", this.handleChangeApp);
     }
     componentWillDismount() {
-        this.element.removeEventListener("changeApp");
+        this.element.current.removeEventListener("changeApp");
     }
     render() {
         console.log("(Re)rendering App.");
-        return this.getApp();
-    }
-    handleChangeApp(e) {
-        if(e.detail.changeTo !== this.state.app) {
-            this.setState({
-                app: e.detail.changeTo,
-                data: e.detail.data
-            });
-        }
-    }
-    getApp() {
         let name = this.state.app;
         let content;
         if(name === "appSpell") {
@@ -55,14 +46,12 @@ class App extends React.Component {
             );
         }
         else if(name === "appSpellList") {
-            if(!this.cache.spellList.retrieved) {
-                this.fetchContent(this.cache.spellList.url);
-            }
             content = (
                 <div className="App-content">
                     <SpellList app={this} ref={this.spellList}/>
                 </div>
             );
+            this.fetchContent(this.cache.spellList.url);
         }
         else {
             content = (
@@ -75,26 +64,35 @@ class App extends React.Component {
             );
         }
         return (
-            <div className="App" ref={elem => this.element = elem}>
+            <div className="App" ref={this.element}>
                 {content}
             </div>
         );
+    }
+    handleChangeApp(e) {
+        if(e.detail.changeTo !== this.state.app) {
+            this.setState({
+                app: e.detail.changeTo,
+                data: e.detail.data
+            });
+        }
     }
     async fetchContent(url) {
         // Called only once on the first time loading SpellList.
         if(!this.cache.spellList.retrieved) {
             console.log("Fetching SpellList content...");
-            let response = await fetch(url).then(result => {
+            await fetch(url)
+            .then(result => result.json())
+            .then(result => {
+                let response = result;
                 console.log("Response received.");
-                return result.json();
+                this.cache.spellList.entries = new Map();
+                for(let obj of response.results) {
+                    this.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
+                }
+                this.cache.spellList.retrieved = true;
+                console.log("Saved " + response.count + " to App cache.");
             });
-            this.cache.spellList.entries = new Map();
-            for(let obj of response.results) {
-                this.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
-            }
-            this.cache.spellList.retrieved = true;
-            console.log("Saved " + response.count + " to App cache.");
-            this.spellList.current.forceUpdate();
         }
     }
 }
