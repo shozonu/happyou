@@ -19,7 +19,7 @@ class SpellListSearchButton extends React.Component {
     render() {
         return(
             <div onClick={this.submit} className="SpellList-search-button">
-                🡺
+                &#x21BB;
             </div>
         );
     }

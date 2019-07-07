@@ -4,7 +4,11 @@ import './App.css';
 class SpellListSearchInput extends React.Component {
     render() {
         return(
-            <input type="search" className="SpellList-search-input"/>
+            <input
+                type="search"
+                className="SpellList-search-input"
+                autofocus="true"
+            />
         );
     }
 }
