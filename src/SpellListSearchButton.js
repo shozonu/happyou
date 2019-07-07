@@ -6,8 +6,13 @@ class SpellListSearchButton extends React.Component {
         super(props);
         this.spellList = props.spellList;
         this.submit = this.submit.bind(this);
+        this.element = React.createRef();
     }
-    submit() {
+    componentDidMount() {
+        this.element.current.addEventListener("click", this.submit);
+        this.element.current.addEventListener("searchEnterKeypress", this.submit);
+    }
+    submit(e = null) {
         console.log("Search submitted.");
         this.spellList.ready = false;
         this.spellList.setState({
@@ -18,7 +23,7 @@ class SpellListSearchButton extends React.Component {
     }
     render() {
         return(
-            <div onClick={this.submit} className="SpellList-search-button">
+            <div className="SpellList-search-button" ref={this.element}>
                 &#x21BB;
             </div>
         );
