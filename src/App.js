@@ -37,7 +37,6 @@ class App extends React.Component {
         this.element.current.removeEventListener("changeApp");
     }
     render() {
-        console.log("(Re)rendering App.");
         let name = this.state.app;
         let content;
         if(name === "appSpell") {
@@ -46,12 +45,12 @@ class App extends React.Component {
             );
         }
         else if(name === "appSpellList") {
+            this.fetchContent(this.cache.spellList.url);
             content = (
                 <div className="App-content">
                     <SpellList app={this} ref={this.spellList}/>
                 </div>
             );
-            this.fetchContent(this.cache.spellList.url);
         }
         else {
             content = (
@@ -85,13 +84,13 @@ class App extends React.Component {
             .then(result => result.json())
             .then(result => {
                 let response = result;
-                console.log("Response received.");
                 this.cache.spellList.entries = new Map();
                 for(let obj of response.results) {
                     this.cache.spellList.entries.set(obj.name.toLowerCase(), obj);
                 }
                 this.cache.spellList.retrieved = true;
-                console.log("Saved " + response.count + " to App cache.");
+                console.log("Response received.\nStored " + response.count + " entries to App cache.");
+                this.spellList.current.localSearch(true);
             });
         }
     }

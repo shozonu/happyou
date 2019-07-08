@@ -31,14 +31,9 @@ class SpellList extends React.Component {
         this.ready = false;
     }
     componentDidMount() {
-        // Invoking localSearch here causes previous results to remain in searches.
         if(this.app.cache.spellList.retrieved) {
             this.localSearch(true);
         }
-        else {
-            setTimeout(() => {this.localSearch(true)}, 500);
-        }
-        console.log("SpellList mounted.");
     }
     componentDidUpdate() {
         if(this.state.count === 1) {
@@ -118,6 +113,10 @@ class SpellList extends React.Component {
         else {
             return(
                 <div className="App-content">
+                    <div className="SpellList-search-container">
+                        <SpellListSearchInput spellList={this}/>
+                        <SpellListSearchButton spellList={this}/>
+                    </div>
                     <div style={{paddingBottom: 33}}>
                         Loading...
                     </div>
@@ -140,7 +139,7 @@ class SpellList extends React.Component {
     }
     async localSearch(getAll = false) {
         if(getAll) {
-            console.log("Retrieving SpellList from cache...");
+            console.log("Retrieving entries from cache.");
             let array = [];
             this.app.cache.spellList.entries.forEach((value, key) => {
                 array.push(value);
@@ -156,7 +155,7 @@ class SpellList extends React.Component {
             let input = document
                 .getElementsByClassName("SpellList-search-input")[0]
                 .value;
-            console.log("Searching terms from cache: " + input);
+            console.log("Searching terms from cache: '" + input + "'");
             let inputNormalized = String(input)
                 .trim()
                 .replace(/\s+/g, " ")
