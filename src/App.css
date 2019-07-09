@@ -191,7 +191,23 @@
     transition: width 0.5s, padding-left 0.5s;
     border-right: solid 0.33em black;
 }
-.side-container > div {
+
+.side-container .side-tab {
+    background-color: black;
+    position: absolute;
+    left: 0;
+    width: calc(0.33em + 5vmin);
+    padding-left: 0.33em;
+    padding-top: calc(0.5em + 3vmin);
+    padding-bottom: calc(0.5em + 3vmin);
+    transition: left 0.5s;
+    border-top-right-radius: 0.33em;
+    border-bottom-right-radius: 0.33em;
+    text-align: center;
+    user-select: none;
+}
+
+.side-container .sidebar-entry {
     visibility: hidden;
     white-space: nowrap;
     padding-left: 0em;
@@ -202,12 +218,17 @@
     width: calc(6em + 10vw);
     padding-left: 0em;
 }
-.side-container:hover > div {
+
+.side-container:hover .side-tab {
+    left: calc(6em + 10vw);
+}
+
+.side-container:hover .sidebar-entry {
     visibility: visible;
     white-space: nowrap;
     padding-left: 1em;
     width: calc(100% - 1em);
 }
-.side-container:hover > div:hover {
+.side-container:hover .sidebar-entry:hover {
     background-color: #1d2329;
 }

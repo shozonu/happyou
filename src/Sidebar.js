@@ -15,6 +15,7 @@ class Sidebar extends React.Component {
         return (
             <div className="Side">
                 <div className ="side-container">
+                    <div className="side-tab">&#9776;</div>
                     {this.state.entries}
                 </div>
             </div>
@@ -31,7 +32,7 @@ function GenerateEntryDiv(index, text, changeTo) {
         }));
     };
     return (
-        <div onClick={f} key={index}>{text}</div>
+        <div className="sidebar-entry" onClick={f} key={index}>{text}</div>
     );
 }
 
