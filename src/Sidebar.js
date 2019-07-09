@@ -7,13 +7,8 @@ class Sidebar extends React.Component {
     }
     componentDidMount() {
         let list = [];
-        for(let i = 0; i < 4; i++) {
-            let name = "Sidebar Entry " + i;
-            let e = GenerateEntryDiv(i, name, "appDefault");
-            list.push(e);
-        }
-        let n = list.length;
-        list.push(GenerateEntryDiv(n++, "SpellList", "appSpellList"));
+        let n = list.length; // Using n as key for React element.
+        list.push(GenerateEntryDiv(n++, "Spell List", "appSpellList"));
         this.setState({entries: list});
     }
     render() {

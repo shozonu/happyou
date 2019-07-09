@@ -18,7 +18,7 @@ class App extends React.Component {
             },
             spell: new Map()
         };
-        let appName = "None. Click one of the sidebar entries!";
+        let appName = "None.";
         if(props.app != null) {
             appName = props.app;
         }
@@ -56,8 +56,7 @@ class App extends React.Component {
             content = (
                 <div className="App-content">
                     <p>
-                        Currently Displaying:<br/>
-                        <code>{this.state.app}</code>
+                        <code>Select an App from the sidebar on the left.</code>
                     </p>
                 </div>
             );
