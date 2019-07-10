@@ -7,6 +7,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.spellList = React.createRef();
+        this.spell = React.createRef();
         this.element = React.createRef();
         this.handleChangeApp = this.handleChangeApp.bind(this);
         this.handleShowSpellModal = this.handleShowSpellModal.bind(this);
@@ -63,11 +64,7 @@ class App extends React.Component {
         }
         return (
             <div className="App" ref={this.element}>
-                <div className="modal">
-                    <div className="modal-content">
-                        Stuff
-                    </div>
-                </div>
+                <Spell app={this} ref={this.spell}/>
                 {content}
             </div>
         );
@@ -86,7 +83,14 @@ class App extends React.Component {
             + e.detail.name
             + "\nURL: " + e.detail.data.spell.url
         );
-        let modal = document.getElementsByClassName("modal")[0];
+        let modal = document.getElementsByClassName("Spell-modal")[0];
+        modal.style.display = "flex";
+        modal.dispatchEvent(new CustomEvent("loadSpell", {
+            bubbles: false,
+            detail: {
+                url: e.detail.data.spell.url
+            }
+        }))
     }
     async fetchContent(url) {
         // Called only once on the first time loading SpellList.

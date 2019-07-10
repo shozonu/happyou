@@ -5,11 +5,15 @@ import './App.css';
 class Spell extends React.Component {
     constructor(props) {
         super(props);
+        this.element = React.createRef();
         this.fetchContent = this.fetchContent.bind(this);
+        this.handleLoadSpell = this.handleLoadSpell.bind(this);
         this.app = props.app;
         this.state = {};
-        this.prevSearchInput = props.prevSearchInput;
-        this.fetchContent(props.url);
+        this.url = props.url;
+    }
+    componentDidMount() {
+        this.element.current.addEventListener("loadSpell", this.handleLoadSpell)
     }
     render() {
         let content = [];
@@ -99,18 +103,25 @@ class Spell extends React.Component {
                 }
             }
             return(
-                <div className="App-content">
-                    <div className="Spell">
-                        {content}
+                <div className="Spell-modal">
+                    <div className="Spell-modal-content">
+                        <div className="Spell">
+                            {content}
+                        </div>
+                        <SpellBackButton/>
                     </div>
-                    <SpellBackButton prevSearchInput={this.prevSearchInput}/>
                 </div>
             );
         }
         else {
             return(
-                <div className="App-content">
-                    Loading spell...
+                <div className="Spell-modal" ref={this.element}>
+                    <div className="Spell-modal-content">
+                        <div className="Spell">
+                            Loading Spell...
+                        </div>
+                        <SpellBackButton/>
+                    </div>
                 </div>
             );
         }
@@ -134,6 +145,10 @@ class Spell extends React.Component {
             }
         }
         this.setState(response);
+    }
+    handleLoadSpell(e) {
+        console.log("handleLoadSpell called.");
+        this.fetchContent(e.detail.url);
     }
 }
 
