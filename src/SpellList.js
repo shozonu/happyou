@@ -39,11 +39,10 @@ class SpellList extends React.Component {
         if(this.state.count === 1) {
             let app = document.getElementsByClassName("App");
             let spell = this.state.results[0];
-            app[0].dispatchEvent(new CustomEvent("changeApp", {
+            app[0].dispatchEvent(new CustomEvent("showSpellModal", {
                 bubbles: false,
                 detail: {
                     name: spell.name,
-                    changeTo: "appSpell",
                     data: {
                         spell: spell
                     }
