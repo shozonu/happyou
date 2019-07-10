@@ -205,7 +205,7 @@
 .Spell-desc {
     /* font-size: calc(1em - 10px); */
 }
-.Spell-back-button {
+.Spell-close-button {
     background-color: #373c44;
     width: calc(36px + 8vmin);
     border-radius: 8px;
@@ -215,6 +215,7 @@
     margin-bottom: 2vmin;
     text-align: center;
     user-select: none;
+    color: white;
 }
 
 @keyframes App-logo-spin {

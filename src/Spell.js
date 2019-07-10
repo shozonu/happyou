@@ -1,5 +1,5 @@
 import React from 'react';
-import SpellBackButton from './SpellBackButton';
+import SpellCloseButton from './SpellCloseButton';
 import './App.css';
 
 class Spell extends React.Component {
@@ -108,7 +108,7 @@ class Spell extends React.Component {
                         <div className="Spell">
                             {content}
                         </div>
-                        <SpellBackButton/>
+                        <SpellCloseButton/>
                     </div>
                 </div>
             );
@@ -120,7 +120,7 @@ class Spell extends React.Component {
                         <div className="Spell">
                             Loading Spell...
                         </div>
-                        <SpellBackButton/>
+                        <SpellCloseButton/>
                     </div>
                 </div>
             );
@@ -147,7 +147,6 @@ class Spell extends React.Component {
         this.setState(response);
     }
     handleLoadSpell(e) {
-        console.log("handleLoadSpell called.");
         this.fetchContent(e.detail.url);
     }
 }
