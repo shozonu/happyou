@@ -152,20 +152,6 @@
     border: 1px solid #888;
 }
 
-.Spell-modal-close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.Spell-modal-close:hover,
-.Spell-modal-close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .Spell {
     background-color: #373c44;
     max-width: 85%;
