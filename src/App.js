@@ -78,11 +78,6 @@ class App extends React.Component {
         }
     }
     handleShowSpellModal(e) {
-        console.log(
-            "Spell Modal\nName: "
-            + e.detail.name
-            + "\nURL: " + e.detail.data.spell.url
-        );
         let modal = document.getElementsByClassName("Spell-modal")[0];
         modal.style.display = "flex";
         modal.dispatchEvent(new CustomEvent("loadSpell", {

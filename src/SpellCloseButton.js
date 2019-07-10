@@ -15,6 +15,10 @@ class SpellCloseButton extends React.Component {
     }
     close() {
         let modal = document.getElementsByClassName("Spell-modal")[0];
+        modal.dispatchEvent(new CustomEvent("unloadSpell", {
+            bubbles: false,
+            detail: {}
+        }));
         modal.style.display = "none";
     }
 }

@@ -8,16 +8,19 @@ class Spell extends React.Component {
         this.element = React.createRef();
         this.fetchContent = this.fetchContent.bind(this);
         this.handleLoadSpell = this.handleLoadSpell.bind(this);
+        this.handleUnloadSpell = this.handleUnloadSpell.bind(this);
         this.app = props.app;
         this.state = {};
         this.url = props.url;
+        this.ready = false;
     }
     componentDidMount() {
-        this.element.current.addEventListener("loadSpell", this.handleLoadSpell)
+        this.element.current.addEventListener("loadSpell", this.handleLoadSpell);
+        this.element.current.addEventListener("unloadSpell", this.handleUnloadSpell);
     }
     render() {
         let content = [];
-        if(this.state.desc != null) {
+        if(this.ready) {
             content.push(
                 <div key={content.length} className="Spell-title">
                     {this.state.name}
@@ -117,7 +120,13 @@ class Spell extends React.Component {
             return(
                 <div className="Spell-modal" ref={this.element}>
                     <div className="Spell-modal-content">
-                        <div className="Spell">
+                        <div style={{
+                            fontSize: 16,
+                            fontFamily: "Arial",
+                            color: "white",
+                            padding: 12,
+                            userSelect: "none"
+                        }}>
                             Loading Spell...
                         </div>
                         <SpellCloseButton/>
@@ -127,27 +136,35 @@ class Spell extends React.Component {
         }
     }
     async fetchContent(url) {
-        let response = await fetch(url).then(result => {
+        await fetch(url)
+        .then(result => {
             return result.json();
-        });
-        if(response.material != null) {
-            let s = stringCorrectify(response.material);
-            response.material = s;
-        }
-        for(let i = 0; i < response.desc.length; i++) {
-            let s = stringCorrectify(response.desc[i]);
-            response.desc[i] = s;
-        }
-        if(response.higher_level != null) {
-            for(let i = 0; i < response.higher_level.length; i++) {
-                let s = stringCorrectify(response.higher_level[i]);
-                response.higher_level[i] = s;
+        })
+        .then(response => {
+            if(response.material != null) {
+                let s = stringCorrectify(response.material);
+                response.material = s;
             }
-        }
-        this.setState(response);
+            for(let i = 0; i < response.desc.length; i++) {
+                let s = stringCorrectify(response.desc[i]);
+                response.desc[i] = s;
+            }
+            if(response.higher_level != null) {
+                for(let i = 0; i < response.higher_level.length; i++) {
+                    let s = stringCorrectify(response.higher_level[i]);
+                    response.higher_level[i] = s;
+                }
+            }
+            this.setState(response);
+        });
     }
     handleLoadSpell(e) {
+        this.ready = true;
         this.fetchContent(e.detail.url);
+    }
+    handleUnloadSpell(e) {
+        this.ready = false;
+        this.forceUpdate();
     }
 }
 
