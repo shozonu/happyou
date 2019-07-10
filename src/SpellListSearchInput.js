@@ -4,6 +4,7 @@ import './App.css';
 class SpellListSearchInput extends React.Component {
     constructor(props) {
         super(props);
+        this.spellList = props.spellList;
         this.checkKey = this.checkKey.bind(this);
     }
     render() {

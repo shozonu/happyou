@@ -52,7 +52,10 @@ class App extends React.Component {
             this.fetchContent(this.cache.spellList.url);
             content = (
                 <div className="App-content">
-                    <SpellList app={this} ref={this.spellList}/>
+                    <SpellList
+                        app={this}
+                        ref={this.spellList}
+                    />
                 </div>
             );
         }
