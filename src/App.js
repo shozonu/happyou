@@ -9,6 +9,7 @@ class App extends React.Component {
         this.spellList = React.createRef();
         this.element = React.createRef();
         this.handleChangeApp = this.handleChangeApp.bind(this);
+        this.handleShowSpellModal = this.handleShowSpellModal.bind(this);
         this.fetchContent = this.fetchContent.bind(this);
         this.cache = {
             spellList: {
@@ -32,6 +33,7 @@ class App extends React.Component {
             app: "default"
         });
         this.element.current.addEventListener("changeApp", this.handleChangeApp);
+        this.element.current.addEventListener("showSpellModal", this.handleShowSpellModal);
     }
     componentWillDismount() {
         this.element.current.removeEventListener("changeApp");
@@ -39,16 +41,7 @@ class App extends React.Component {
     render() {
         let name = this.state.app;
         let content;
-        if(name === "appSpell") {
-            content = (
-                <Spell
-                    url={this.state.data.spell.url}
-                    prevSearchInput={this.state.data.spell.prevSearchInput}
-                    app={this}
-                />
-            );
-        }
-        else if(name === "appSpellList") {
+        if(name === "appSpellList") {
             this.fetchContent(this.cache.spellList.url);
             content = (
                 <div className="App-content">
@@ -70,6 +63,11 @@ class App extends React.Component {
         }
         return (
             <div className="App" ref={this.element}>
+                <div className="modal">
+                    <div className="modal-content">
+                        Stuff
+                    </div>
+                </div>
                 {content}
             </div>
         );
@@ -81,6 +79,14 @@ class App extends React.Component {
                 data: e.detail.data
             });
         }
+    }
+    handleShowSpellModal(e) {
+        console.log(
+            "Spell Modal\nName: "
+            + e.detail.name
+            + "\nURL: " + e.detail.data.spell.url
+        );
+        let modal = document.getElementsByClassName("modal")[0];
     }
     async fetchContent(url) {
         // Called only once on the first time loading SpellList.
