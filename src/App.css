@@ -165,6 +165,16 @@
 .Spell-desc {
     /* font-size: calc(1em - 10px); */
 }
+.Spell-back-button {
+    background-color: #373c44;
+    width: calc(36px + 8vmin);
+    border-radius: 8px;
+    padding-top: 1vmin;
+    padding-bottom: 1vmin;
+    margin-bottom: 4vmin;
+    text-align: center;
+    user-select: none;
+}
 
 @keyframes App-logo-spin {
     from {

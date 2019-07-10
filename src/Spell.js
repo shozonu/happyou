@@ -1,4 +1,5 @@
 import React from 'react';
+import SpellBackButton from './SpellBackButton';
 import './App.css';
 
 class Spell extends React.Component {
@@ -7,6 +8,7 @@ class Spell extends React.Component {
         this.fetchContent = this.fetchContent.bind(this);
         this.app = props.app;
         this.state = {};
+        this.prevSearchInput = props.prevSearchInput;
         this.fetchContent(props.url);
     }
     render() {
@@ -101,6 +103,7 @@ class Spell extends React.Component {
                     <div className="Spell">
                         {content}
                     </div>
+                    <SpellBackButton prevSearchInput={this.prevSearchInput}/>
                 </div>
             );
         }

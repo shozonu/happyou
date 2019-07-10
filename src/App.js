@@ -41,7 +41,11 @@ class App extends React.Component {
         let content;
         if(name === "appSpell") {
             content = (
-                <Spell url={this.state.data.spell.url} app={this}/>
+                <Spell
+                    url={this.state.data.spell.url}
+                    prevSearchInput={this.state.data.spell.prevSearchInput}
+                    app={this}
+                />
             );
         }
         else if(name === "appSpellList") {

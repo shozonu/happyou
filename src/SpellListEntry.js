@@ -12,6 +12,9 @@ class SpellListEntry extends React.Component {
     render() {
         const context = this;
         let f = function() {
+            let prevSearchInput = document
+                .getElementsByClassName("SpellList-search-input")[0]
+                .value;
             document.getElementsByClassName("App")[0]
             .dispatchEvent(new CustomEvent("changeApp", {
                 bubbles: false,
@@ -20,7 +23,8 @@ class SpellListEntry extends React.Component {
                     changeTo: "appSpell",
                     data: {
                         spell: {
-                            url: context.state.url
+                            url: context.state.url,
+                            prevSearchInput: prevSearchInput
                         }
                     }
                 }
