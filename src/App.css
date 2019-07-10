@@ -132,6 +132,10 @@
     max-width: 66vw;
     padding: 2.5vmin;
     padding-top: 1vmin;
+    margin-left: 8vmin;
+    margin-right: 8vmin;
+    margin-top: 4vmin;
+    margin-bottom: 4vmin;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -195,14 +199,16 @@
 .side-container .side-tab {
     background-color: black;
     position: absolute;
-    left: 0;
-    width: calc(0.33em + 5vmin);
-    padding-left: 0.33em;
-    padding-top: calc(0.5em + 3vmin);
-    padding-bottom: calc(0.5em + 3vmin);
+    left: 0.33em;
+    top: 40vmin;
+    width: 5vmin;
+    padding-left: calc(1px + 1vmin);
+    padding-right: calc(1px + 1vmin);
+    padding-top: calc(6px + 3vmin);
+    padding-bottom: calc(6px + 3vmin);
     transition: left 0.5s;
-    border-top-right-radius: 0.33em;
-    border-bottom-right-radius: 0.33em;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     text-align: center;
     user-select: none;
 }
@@ -220,7 +226,7 @@
 }
 
 .side-container:hover .side-tab {
-    left: calc(6em + 10vw);
+    left: calc(6.33em + 10vw);
 }
 
 .side-container:hover .sidebar-entry {
