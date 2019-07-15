@@ -166,7 +166,7 @@
 
     color: white;
     font-family: "Scaly Sans";
-    font-size: calc(1em - 2px);
+    font-size: calc(3px + 2.5vmin);
     font-style: normal;
     font-weight: normal;
     font-variant-caps: normal;
