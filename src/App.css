@@ -71,8 +71,11 @@
     justify-content: center;
 }
 .SpellList-entry {
-    /* background: grey; */
     min-width: 20vw;
+}
+
+.SpellList-entry:hover {
+    background-color: #494F56;
 }
 
 .SpellList-search-container {
