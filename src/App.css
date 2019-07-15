@@ -152,6 +152,10 @@
     border: 1px solid #888;
 }
 
+.Spell-close-button:hover {
+    background-color: #494F56;
+}
+
 .Spell {
     background-color: #373c44;
     max-width: 85%;
